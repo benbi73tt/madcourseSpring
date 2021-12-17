@@ -7,16 +7,10 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import ru.madbrains.anton.madcourse.company.ITCompany;
 import ru.madbrains.anton.madcourse.config.CompanyConfig;
 
-//@SpringBootApplication
+@SpringBootApplication //запуск tomcat
 public class MadcourseApplication {
-
 	public static void main(String[] args) {
-		ApplicationContext context = new AnnotationConfigApplicationContext(CompanyConfig.class);
-
-		// ITCompany company = context.getBean("CompanyComponent",ITCompany.class);
-		ITCompany company = context.getBean(ITCompany.class);
-		System.out.println(company.getName());
-		System.out.println(company.getDirector());
+		SpringApplication.run(MadcourseApplication.class, args);
 
 	}
 

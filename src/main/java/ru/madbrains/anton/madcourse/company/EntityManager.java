@@ -1,25 +1,27 @@
 package ru.madbrains.anton.madcourse.company;
 
 import ru.madbrains.anton.madcourse.company.employer.Employer;
+import ru.madbrains.anton.madcourse.company.employer.ITRole;
 
-import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EntityManager<T extends Employer> {
-    private T[] entities;
-    int size;
+    //@JsonIgnore // скрыть поле
+    private List<Employer<ITRole>> entities;
 
     @SuppressWarnings("unchecked")
-    public EntityManager(int maxSize, Class<T> clazz){
-        this.entities = (T[]) Array.newInstance(clazz, maxSize);
+    public EntityManager(int maxExampleCount, Class<Employer> employerClass) {
+        this.entities = new ArrayList<>();
     }
 
-    @SuppressWarnings("unchecked")
-    public void addEntities(T entity){
-        System.out.println(entity.getName() + " is added");
-        entities[size] = entity;
-        size++;
+
+    public int getSize() {
+        return entities.size();
     }
-    public int getSize() { return size; }
-    public T[] getEntities(){ return entities; }
+
+    public List<Employer<ITRole>> getEntities() {
+        return entities;
+    }
 }
 

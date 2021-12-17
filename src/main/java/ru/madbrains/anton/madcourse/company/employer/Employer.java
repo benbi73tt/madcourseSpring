@@ -8,9 +8,9 @@ public abstract class Employer<T> implements Worker {
     private T role;
 
 
-    public Employer(String name, int age, T role){
-        this.name=name;
-        this.age=age;
+    public Employer(String name, int age, T role) {
+        this.name = name;
+        this.age = age;
         this.role = role;
     }
 
@@ -27,15 +27,15 @@ public abstract class Employer<T> implements Worker {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public int getAge() {
-        return age;
+        return this.age;
     }
 
     public T getRole() {
-        return role;
+        return this.role;
     }
 
     public void setRole(T role) {
@@ -44,15 +44,15 @@ public abstract class Employer<T> implements Worker {
 
 
     @Override
-    public boolean equals(Object o){
+    public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Employer<?> employer = (Employer<?>) o;
-        return age == employer.age && Objects.equals(name,employer.name) && Objects.equals(role, employer.role);
+        return age == employer.age && Objects.equals(name, employer.name) && Objects.equals(role, employer.role);
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return Objects.hash(name, age, role);
     }
 }

@@ -6,9 +6,7 @@ import java.util.Objects;
 public class Developer extends Employer<ITRole> {
     private String language;
 
-    public String getLanguage() {
-        return language;
-    }
+
 
     public Developer(String name, int age, String language){
         super(name,age, ITRole.Developer);
@@ -18,6 +16,10 @@ public class Developer extends Employer<ITRole> {
     @Override
     public void work(){
         writeCode();
+    }
+
+    public String getLanguage() {
+        return language;
     }
 
     private void writeCode(){

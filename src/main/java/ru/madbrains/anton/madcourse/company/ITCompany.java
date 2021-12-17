@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import ru.madbrains.anton.madcourse.company.employer.ITRole;
 import ru.madbrains.anton.madcourse.company.employer.Employer;
 
+import java.util.List;
 import java.util.Objects;
 
 @Component("CompanyComponent")
@@ -25,11 +26,8 @@ public class ITCompany extends EntityManager<Employer> {
         this.director = director;
     }
 
-    public String getDirector() {
-        return "Employer {" + "name = '" + director.getName() + '\'' +
-                " age = '" + director.getAge() + '\'' +
-                " role = '" + director.getRole() + '\'' +
-                '}';
+    public Employer<ITRole> getDirector() {
+        return director;
     }
 
 //    public ITCompany() {
@@ -44,8 +42,8 @@ public class ITCompany extends EntityManager<Employer> {
 
     public void startWork() {
         for (int i = 0; i < this.getSize(); i++) {
-            Employer[] workers = this.getEntities();
-            Employer worker = workers[i];
+            List<Employer<ITRole>> workers = this.getEntities();
+            Employer worker = workers.get(i);
             worker.work();
             System.out.println(worker.getName() + " is " + worker.getRole());
         }

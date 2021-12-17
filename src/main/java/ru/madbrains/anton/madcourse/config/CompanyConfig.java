@@ -13,24 +13,23 @@ import ru.madbrains.anton.madcourse.company.employer.ITRole;
 @ComponentScan("ru.madbrains.anton.madcourse.company")
 public class CompanyConfig {
 
-//    @Bean
-//    @Primary //bean по умолчанию
-//    public ITCompany getITCompany(Employer<ITRole> director){
-//        ITCompany company = new ITCompany("MadBrains222222222", 100);
-//        company.setDirector(director);
-//        return company;
-//    }
-//
-//    @Bean
-//    public ITCompany getAnotherItCompany(){
-//        return new ITCompany("SomeCompany",200);
-//    }
+    @Bean
+    @Primary //bean по умолчанию
+    public ITCompany getITCompany(Employer<ITRole> director){
+        ITCompany company = new ITCompany("MadBrains222222222", 100);
+        company.setDirector(director);
+        return company;
+    }
 
+    @Bean
+    public ITCompany getAnotherItCompany(){
+        return new ITCompany("SomeCompany",200);
+    }
 
 
     @Bean
-    public Employer<ITRole> getDirector(){
-        return new Employer<>("Oleg",30,ITRole.Director) {
+    public Employer<ITRole> getDirector() {
+        return new Employer<>("Oleg", 30, ITRole.Director) {
             @Override
             public void work() {
                 System.out.println(this.getName() + " is director");
@@ -39,12 +38,12 @@ public class CompanyConfig {
     }
 
     @Bean("CompanyName")
-    public String getCompanyName(){
+    public String getCompanyName() {
         return "MadBrains";
     }
 
     @Bean("MaxEmployerCount")
-    public int getCount(){
+    public int getCount() {
         return 100;
     }
 
