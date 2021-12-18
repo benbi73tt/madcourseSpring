@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Component("CompanyComponent")
-public class ITCompany extends EntityManager<Employer> {
+public class ITCompany extends EmployerManager<Employer> {
     //@Value("MadBrains")
     private String name;
 
@@ -42,7 +42,7 @@ public class ITCompany extends EntityManager<Employer> {
 
     public void startWork() {
         for (int i = 0; i < this.getSize(); i++) {
-            List<Employer<ITRole>> workers = this.getEntities();
+            List<Employer<ITRole>> workers = this.getEmployers();
             Employer worker = workers.get(i);
             worker.work();
             System.out.println(worker.getName() + " is " + worker.getRole());

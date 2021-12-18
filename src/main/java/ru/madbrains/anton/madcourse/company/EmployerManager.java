@@ -6,12 +6,12 @@ import ru.madbrains.anton.madcourse.company.employer.ITRole;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EntityManager<T extends Employer> {
+public class EmployerManager<T extends Employer> {
     //@JsonIgnore // скрыть поле
     private List<Employer<ITRole>> entities;
 
     @SuppressWarnings("unchecked")
-    public EntityManager(int maxExampleCount, Class<Employer> employerClass) {
+    public EmployerManager(int maxExampleCount, Class<Employer> employerClass) {
         this.entities = new ArrayList<>();
     }
 
@@ -20,7 +20,7 @@ public class EntityManager<T extends Employer> {
         return entities.size();
     }
 
-    public List<Employer<ITRole>> getEntities() {
+    public List<Employer<ITRole>> getEmployers() {
         return entities;
     }
 }

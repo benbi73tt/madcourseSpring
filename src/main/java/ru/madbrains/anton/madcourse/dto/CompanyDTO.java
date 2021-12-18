@@ -18,7 +18,7 @@ public class CompanyDTO {
         CompanyDTO companyDTO = new CompanyDTO();
         companyDTO.setDirector(company.getDirector());
         companyDTO.setName(company.getName());
-        companyDTO.setEmployers(company.getEntities());
+        companyDTO.setEmployers(company.getEmployers());
         return companyDTO;
     }
 

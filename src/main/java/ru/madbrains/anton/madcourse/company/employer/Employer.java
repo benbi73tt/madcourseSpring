@@ -1,11 +1,25 @@
 package ru.madbrains.anton.madcourse.company.employer;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@MappedSuperclass
 public abstract class Employer<T> implements Worker {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+
+    @Column(name="name")
     private String name;
+
+    @Column(name = "age")
     private int age;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role")
     private T role;
+
+    public Employer(){}
 
 
     public Employer(String name, int age, T role) {
