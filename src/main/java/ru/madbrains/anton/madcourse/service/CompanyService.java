@@ -9,9 +9,14 @@ import ru.madbrains.anton.madcourse.company.employer.PM;
 import java.util.List;
 
 public interface CompanyService {
-    ITCompany getCompany();
-    void addDeveloper(Developer developer);
-    void addPM(PM pm);
-    List<Employer<ITRole>> getEmployersByRole(ITRole role);
+    Integer createCompany(ITCompany company);
+
+    ITCompany getCompany(int id);
+
+    void addDeveloper(Developer developer, int company_id);
+
+    List<Employer> getEmployersByRole(ITRole role, int company_id);
+
     Employer<ITRole> getEmployerByIndex(int index);
+
 }

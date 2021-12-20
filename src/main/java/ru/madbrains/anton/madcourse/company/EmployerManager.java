@@ -1,27 +1,35 @@
 package ru.madbrains.anton.madcourse.company;
 
 import ru.madbrains.anton.madcourse.company.employer.Employer;
-import ru.madbrains.anton.madcourse.company.employer.ITRole;
 
+import javax.persistence.CascadeType;
+import javax.persistence.JoinColumn;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
+
+@MappedSuperclass
 public class EmployerManager<T extends Employer> {
     //@JsonIgnore // скрыть поле
-    private List<Employer<ITRole>> entities;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "company_id")
+    private List<T> employers;
 
     @SuppressWarnings("unchecked")
-    public EmployerManager(int maxExampleCount, Class<Employer> employerClass) {
-        this.entities = new ArrayList<>();
+    public EmployerManager() {
+        this.employers = new ArrayList<>();
     }
+
 
 
     public int getSize() {
-        return entities.size();
+        return employers.size();
     }
 
-    public List<Employer<ITRole>> getEmployers() {
-        return entities;
+    public List<T> getEmployers() {
+        return employers;
     }
 }
 

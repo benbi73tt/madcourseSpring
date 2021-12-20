@@ -6,16 +6,32 @@ import org.springframework.stereotype.Component;
 import ru.madbrains.anton.madcourse.company.employer.ITRole;
 import ru.madbrains.anton.madcourse.company.employer.Employer;
 
+import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
-@Component("CompanyComponent")
-public class ITCompany extends EmployerManager<Employer> {
+@Entity
+@Table(name="companies")
+public class ITCompany extends EmployerManager<Employer<ITRole>> {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+
     //@Value("MadBrains")
+    @Column(name = "name")
     private String name;
 
-    @Autowired
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "director_id")
     private Employer<ITRole> director;
+
+    public ITCompany(String companyName) {
+        super();
+        this.name = companyName;
+    }
+
+    public ITCompany() {}
 
 
     public void setName(String name) {
@@ -36,21 +52,28 @@ public class ITCompany extends EmployerManager<Employer> {
 
     public ITCompany(@Qualifier("CompanyName") String companyName,
                      @Qualifier("MaxEmployerCount") int maxExampleCount) {
-        super(maxExampleCount, Employer.class);
         this.name = companyName;
     }
 
-    public void startWork() {
-        for (int i = 0; i < this.getSize(); i++) {
-            List<Employer<ITRole>> workers = this.getEmployers();
-            Employer worker = workers.get(i);
-            worker.work();
-            System.out.println(worker.getName() + " is " + worker.getRole());
-        }
-    }
+//    public void startWork() {
+//        for (int i = 0; i < this.getSize(); i++) {
+//            List<Employer<ITRole>> workers = this.getEmployers();
+//            Employer worker = workers.get(i);
+//            worker.work();
+//            System.out.println(worker.getName() + " is " + worker.getRole());
+//        }
+//    }
 
     public String getName() {
         return name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override

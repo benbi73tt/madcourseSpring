@@ -1,5 +1,7 @@
 package ru.madbrains.anton.madcourse.company.employer;
 
 public interface Worker {
-    void work();
+    default void work(){
+        throw new RuntimeException("Not implemented");
+    };
 }
