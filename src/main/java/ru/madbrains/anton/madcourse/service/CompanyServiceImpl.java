@@ -9,6 +9,7 @@ import ru.madbrains.anton.madcourse.company.employer.Developer;
 import ru.madbrains.anton.madcourse.company.employer.Employer;
 import ru.madbrains.anton.madcourse.company.employer.ITRole;
 import ru.madbrains.anton.madcourse.company.employer.PM;
+import ru.madbrains.anton.madcourse.dao.CompanyDAO;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -20,67 +21,36 @@ import java.util.stream.Collectors;
 public class CompanyServiceImpl implements CompanyService {
 
     @Autowired
-    private ITCompany company;
+    CompanyDAO companyDAO;
 
-    @PersistenceContext
-    private EntityManager entityManager;
 
     @Override
     @Transactional
     public Integer createCompany(ITCompany company) {
-        entityManager.persist(company);
-        entityManager.flush();
-        return company.getId();
+        return companyDAO.create(company);
     }
 
     @Override
     public ITCompany getCompany(int id) {
-        return entityManager.find(ITCompany.class, id);
+        return companyDAO.find(id);
     }
 
     @Override
     @Transactional
     public void addDeveloper(Developer developer, int company_id) {
         developer.setCompany(getCompany(company_id));
-        entityManager.persist(developer);
-    }
-
-
-    public void setCompany(ITCompany company) {
-        this.company = company;
-    }
-
-    public EntityManager getEntityManager() {
-        return entityManager;
-    }
-
-    public void setEntityManager(EntityManager entityManager) {
-        this.entityManager = entityManager;
+        companyDAO.addDeveloper(developer);
     }
 
     @Override
     public List<Employer> getEmployersByRole(ITRole role, int company_id) {
-//        List<Employer<ITRole>> employers = company.getEmployers().stream()
-//                .filter(employer -> employer.getRole().equals(role))
-//                .collect(Collectors.toList());
-
-        List<Employer> employers = entityManager.createQuery("select e from Employer e where e.role = :role and e.company = :company", Employer.class)
-              //HQL
-                .setParameter("role", role)
-                .setParameter("company", getCompany(company_id))
-                .getResultList();
-        return employers;
+        return companyDAO.getEmployerByRole(role, company_id);
     }
 
     @Override
     @Transactional
     public Employer<ITRole> getEmployerByIndex(int index) {
-        Developer developer = entityManager.find(Developer.class, index);
-//        Employer<ITRole> employer = company.getEntities().get(index);
-//        return employer;
-        entityManager.detach(developer);//отделить от контекста, чтобы обезопасить
-
-        return developer;
+       return companyDAO.findEmployer(index);
     }
 
 
